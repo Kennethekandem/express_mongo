@@ -2,8 +2,14 @@ const express = require('express');
 const router = express.Router();
 const Post = require('../models/Post');
 
-router.get('/', (req, res) => {
-    res.send('Hello world!');
+router.get('/', async (req, res) => {
+   try {
+       const posts = await Post.find();
+       res.json(posts);
+   }
+   catch (error) {
+       res.status(204).json({ msg: 'No posts found', error });
+   }
 });
 
 // Create post
