@@ -7,19 +7,18 @@ router.get('/', (req, res) => {
 });
 
 // Create post
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
     const post = new Post({
         title: req.body.title,
         description: req.body.description
     });
 
-    post.save()
-        .then(data => {
-            res.json(data)
-        })
-        .catch(error => {
-            res.status(400).json({msg: 'Error posting', error});
-        })
+    try {
+        const createPost = await post.save();
+        res.json({msg: 'Post created', createPost});
+    }catch (error) {
+        res.status(400).json({ msg: 'Post not created', error });
+    }
 });
 
 module.exports = router;
