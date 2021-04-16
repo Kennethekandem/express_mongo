@@ -20,6 +20,6 @@ router.post('/', (req, res) => {
         .catch(error => {
             res.status(400).json({msg: 'Error posting', error});
         })
-})
+});
 
 module.exports = router;
